@@ -1,19 +1,20 @@
 #pragma once
 #include "Block.h"
+#define NEWLINES 15
 
 class Board
 {
 	public:
 		Board(int x_dim, int y_dim);
 		~Board();
-		bool getBlockStatus(int x, int y);
 		void updateBlocks();
 		void displayBoard();
-	protected:
-		void setBlock(int x, int y, bool status);
+		void clearBoard();
+		void initializeBlocks();
 	private:
+		int sumNeighbors(int x, int y);
 		int x_dim, y_dim;
 		Block ** blockArray;
-		final char aliveChar = 'o';
-		final char deadChar = ' ';
+		char aliveChar = 'o';
+		char deadChar = ' ';
 };

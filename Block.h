@@ -3,11 +3,13 @@
 class Block
 {
 	public:
-		Block(int x, int y);
+		Block();
 		~Block();
 		void setStatus(bool status);
 		bool getStatus();
+		void queueStatus(bool status);
+		void updateStatus();
 	private:
-		int x_coord, y_coord;
 		bool isAlive;
+		bool queue;
 };
