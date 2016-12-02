@@ -3,7 +3,7 @@ CFLAGS = --std=c++11 -g -Wall
 SRCS = Game-of-Life.cpp Block.cpp Board.cpp
 OBJS = $(subst .cpp,.o,$(SRCS))
 
-EXECUTABLE = Game-of-Life
+EXECUTABLE = Game-of-Life.out
 
 all: game-of-life
 

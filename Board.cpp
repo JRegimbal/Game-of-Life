@@ -13,6 +13,15 @@ Board::Board(int x_dim, int y_dim) : x_dim(x_dim), y_dim(y_dim)
 	{
 		blockArray[i] = new Block[y_dim];
 	}
+	ratio = 1;
+}
+
+Board::Board(int x_dim, int y_dim, int ratio) : x_dim(x_dim), y_dim(y_dim), ratio(ratio)
+{
+	srand(time(NULL));
+	blockArray = new Block*[x_dim];
+	for(int i = 0; i < x_dim; i++)
+		blockArray[i] = new Block[y_dim];
 }
 
 Board::~Board()
@@ -34,31 +43,43 @@ void Board::initializeBlocks()
 		for(int j = 0; j < y_dim; j++)
 		{
 			sleep_for(nanoseconds(10));
-			//blockArray[i][j].setStatus((rand() % 20) > 0);
-			blockArray[i][j].setStatus(false);
-			blockArray[i][j].queueStatus(false);
+			blockArray[i][j].setStatus((rand() % (ratio+1)) > 0);
 		}
 	}
-	blockArray[5][4].setStatus(true);
-	blockArray[5][6].setStatus(true);
-	blockArray[5][5].setStatus(true);
+}
+
+bool Board::noChange()
+{
+	return !changed;
 }
 
 void Board::updateBlocks()
 {
+	changed = false;
 	for(int j = 0; j < y_dim; j++)
 	{
 		for(int i = 0; i < x_dim; i++)
 		{
 			int surroundings = sumNeighbors(i, j);
 			if(blockArray[i][j].getStatus() && surroundings < 2)
+			{
 				blockArray[i][j].queueStatus(false);
+				changed = true;
+			}
 			else if(blockArray[i][j].getStatus() && (surroundings == 2 || surroundings == 3))
+			{
 				blockArray[i][j].queueStatus(true);
+			}
 			else if(blockArray[i][j].getStatus() && surroundings > 3)
+			{
 				blockArray[i][j].queueStatus(false);
+				changed = true;
+			}
 			else if(!blockArray[i][j].getStatus() && surroundings == 3)
+			{
 				blockArray[i][j].queueStatus(true);
+				changed = true;
+			}
 		}
 	}
 	for(int j = 0; j < y_dim; j++)
@@ -90,7 +111,7 @@ void Board::displayBoard()
 	{
 		for(int i = 0; i < x_dim; i++)
 		{
-			std::cout << blockArray[i][j].getStatus() ? aliveChar : deadChar;
+			std::cout << (blockArray[i][j].getStatus() ? aliveChar : deadChar);
 		}
 		std::cout << std::endl;
 	}
@@ -98,10 +119,15 @@ void Board::displayBoard()
 
 void Board::clearBoard()
 {
-	for(int i = 0; i < NEWLINES; i++)
+	/*for(int i = 0; i < NEWLINES; i++)
 	{
 		std::cout << std::endl;
+	}*/
+	for(int i = 0; i < y_dim; i++)
+	{
+		std::cout << "\e[A";
 	}
+	std::cout << '\r';
 }
 
 
