@@ -7,3 +7,9 @@ Just run make.
 -n sets dimension of x and y for simulation
 
 -r sets ratio of alive to dead cells initialls (r:1 alive)
+
+-x sets width of board
+
+-y sets height of board
+
+-t sets delay between ticks (in ms)

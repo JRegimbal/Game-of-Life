@@ -9,6 +9,8 @@ int main(int argc, char **argv)
 	int rflag = 0;
 	int xflag = 0;
 	int yflag = 0;
+	int tflag = 0;
+	char *tvalue = NULL;
 	char *xvalue = NULL;
 	char *yvalue = NULL;
 	char *nvalue = NULL;
@@ -16,7 +18,7 @@ int main(int argc, char **argv)
 	int c;
 	opterr = 0;
 
-	while((c = getopt(argc, argv, "n:r:x:y:")) != -1)
+	while((c = getopt(argc, argv, "n:r:x:y:t:")) != -1)
 		switch (c)
 		{
 			case 'n':
@@ -35,6 +37,10 @@ int main(int argc, char **argv)
 				yflag = 1;
 				yvalue = optarg;
 				break;
+			case 't':
+				tflag = 1;
+				tvalue = optarg;
+				break;
 			default:
 				break;
 		}
@@ -47,7 +53,7 @@ int main(int argc, char **argv)
 	x = (xflag == 1) ? atoi(xvalue) : x;
 	y = (yflag ==1) ? atoi(yvalue) : y;
 	int ratio = (rflag == 1) ? atoi(rvalue) : 1;
-
+	int delayMillis = (tflag == 1) ? atoi(tvalue) : 1000;
 	Board board(x, y, ratio);
 	board.initializeBlocks();
 	board.displayBoard();
@@ -56,7 +62,7 @@ int main(int argc, char **argv)
 		board.clearBoard();
 		board.displayBoard();
 		//wait
-		sleep_for(seconds(1));
+		sleep_for(milliseconds(delayMillis));
 		board.updateBlocks();
 		if(board.noChange())
 			break;
