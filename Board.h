@@ -22,4 +22,5 @@ class Board
 		char deadChar = ' ';
 		bool changed;
 		int ratio;
+		unsigned int generation;
 };

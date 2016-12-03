@@ -14,6 +14,7 @@ Board::Board(int x_dim, int y_dim) : x_dim(x_dim), y_dim(y_dim)
 		blockArray[i] = new Block[y_dim];
 	}
 	ratio = 1;
+	generation = 1;
 }
 
 Board::Board(int x_dim, int y_dim, int ratio) : x_dim(x_dim), y_dim(y_dim), ratio(ratio)
@@ -22,6 +23,7 @@ Board::Board(int x_dim, int y_dim, int ratio) : x_dim(x_dim), y_dim(y_dim), rati
 	blockArray = new Block*[x_dim];
 	for(int i = 0; i < x_dim; i++)
 		blockArray[i] = new Block[y_dim];
+	generation = 1;
 }
 
 Board::~Board()
@@ -133,6 +135,7 @@ void Board::updateBlocks()
 			blockArray[i][j].updateStatus();
 		}
 	}
+	generation++;
 }
 
 int Board::sumNeighbors(int x, int y)
@@ -159,14 +162,11 @@ void Board::displayBoard()
 		}
 		std::cout << std::endl;
 	}
+	std::cout << generation;
 }
 
 void Board::clearBoard()
 {
-	/*for(int i = 0; i < NEWLINES; i++)
-	{
-		std::cout << std::endl;
-	}*/
 	for(int i = 0; i < y_dim; i++)
 	{
 		std::cout << "\e[A";
