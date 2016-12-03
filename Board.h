@@ -12,6 +12,7 @@ class Board
 		void displayBoard();
 		void clearBoard();
 		void initializeBlocks();
+		void initializeGosper();
 		bool noChange();
 	private:
 		int sumNeighbors(int x, int y);

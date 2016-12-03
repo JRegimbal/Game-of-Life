@@ -1,6 +1,6 @@
 #include "Block.h"
 
-Block::Block() { isAlive = true; queue = true;}
+Block::Block() { isAlive = false; queue = false;}
 
 Block::~Block() { }
 

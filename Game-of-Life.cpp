@@ -10,6 +10,7 @@ int main(int argc, char **argv)
 	int xflag = 0;
 	int yflag = 0;
 	int tflag = 0;
+	int gflag = 0;
 	char *tvalue = NULL;
 	char *xvalue = NULL;
 	char *yvalue = NULL;
@@ -18,9 +19,11 @@ int main(int argc, char **argv)
 	int c;
 	opterr = 0;
 
-	while((c = getopt(argc, argv, "n:r:x:y:t:")) != -1)
+	while((c = getopt(argc, argv, "gn:r:x:y:t:")) != -1)
 		switch (c)
 		{
+			case 'g':
+				gflag = 1;
 			case 'n':
 				nflag = 1;
 				nvalue = optarg;
@@ -49,13 +52,22 @@ int main(int argc, char **argv)
 	using namespace std::chrono;
 
 	int x, y;
-	x = y = (nflag == 1) ? atoi(nvalue) : 10;
-	x = (xflag == 1) ? atoi(xvalue) : x;
-	y = (yflag ==1) ? atoi(yvalue) : y;
+	x = y = (nflag == 1 && gflag == 0) ? atoi(nvalue) : (gflag == 1) ? 50 : 10;
+	x = (xflag == 1 && gflag == 0) ? atoi(xvalue) : x;
+	y = (yflag ==1 && gflag == 0) ? atoi(yvalue) : y;
 	int ratio = (rflag == 1) ? atoi(rvalue) : 1;
 	int delayMillis = (tflag == 1) ? atoi(tvalue) : 1000;
 	Board board(x, y, ratio);
-	board.initializeBlocks();
+	if(gflag == 1)
+	{
+		x = y = 50;
+		delayMillis = (tflag == 0) ? 100 : tflag;
+		board.initializeGosper();
+	}
+	else
+	{
+		board.initializeBlocks();
+	}
 	board.displayBoard();
 	while(true)
 	{

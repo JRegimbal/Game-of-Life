@@ -13,3 +13,5 @@ Just run make.
 -y sets height of board
 
 -t sets delay between ticks (in ms)
+
+-g creates a Gosper glider gun - it will only last until the gliders loop back

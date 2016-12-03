@@ -33,6 +33,50 @@ Board::~Board()
 	delete [] blockArray;
 }
 
+void Board::initializeGosper()
+{
+	blockArray[1][6].setStatus(true);
+	blockArray[1][7].setStatus(true);
+	blockArray[2][6].setStatus(true);
+	blockArray[2][7].setStatus(true);
+
+	blockArray[11][6].setStatus(true);
+	blockArray[11][7].setStatus(true);
+	blockArray[11][8].setStatus(true);
+	blockArray[12][5].setStatus(true);
+	blockArray[12][9].setStatus(true);
+	blockArray[13][4].setStatus(true);
+	blockArray[13][10].setStatus(true);
+	blockArray[14][4].setStatus(true);
+	blockArray[14][10].setStatus(true);
+	blockArray[15][7].setStatus(true);
+	blockArray[16][5].setStatus(true);
+	blockArray[16][9].setStatus(true);
+	blockArray[17][6].setStatus(true);
+	blockArray[17][7].setStatus(true);
+	blockArray[17][8].setStatus(true);
+	blockArray[18][7].setStatus(true);
+
+	blockArray[21][4].setStatus(true);
+	blockArray[21][5].setStatus(true);
+	blockArray[21][6].setStatus(true);
+	blockArray[22][4].setStatus(true);
+	blockArray[22][5].setStatus(true);
+	blockArray[22][6].setStatus(true);
+	blockArray[23][3].setStatus(true);
+	blockArray[23][7].setStatus(true);
+	
+	blockArray[25][2].setStatus(true);
+	blockArray[25][3].setStatus(true);
+	blockArray[25][7].setStatus(true);
+	blockArray[25][8].setStatus(true);
+
+	blockArray[35][4].setStatus(true);
+	blockArray[35][5].setStatus(true);
+	blockArray[36][4].setStatus(true);
+	blockArray[36][5].setStatus(true);
+}
+
 void Board::initializeBlocks()
 {
 	using namespace std::this_thread;
