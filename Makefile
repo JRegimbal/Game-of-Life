@@ -17,7 +17,7 @@ Board.o: Board.cpp Board.h
 Block.o: Block.cpp Block.h
 
 clean:
-	rm $(EXECUTABLE) $(OBJECTS)
+	rm $(EXECUTABLE) $(OBJS)
 
 partial_clean:
-	rm $(OBJECTS)
+	rm $(OBJS)
