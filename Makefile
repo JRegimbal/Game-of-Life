@@ -1,20 +1,15 @@
 CC = g++
 CFLAGS = --std=c++11 -g -Wall
-SRCS = Game-of-Life.cpp Block.cpp Board.cpp
-OBJS = $(subst .cpp,.o,$(SRCS))
+SRCS = $(wildcard *.cpp)
+OBJS = $(SRCS:.cpp=.o)
 
-EXECUTABLE = Game-of-Life.out
+EXECUTABLE = game-of-life
 
-all: game-of-life
+$(EXECUTABLE): $(OBJS)
+	$(CC) -o $(EXECUTABLE) $(OBJS)
 
-game-of-life: $(OBJS)
-	$(CC) $(CFLAGS) -o $(EXECUTABLE) $(OBJS) 
-
-Game-of-Life.o: Game-of-Life.cpp
-
-Board.o: Board.cpp Board.h
-
-Block.o: Block.cpp Block.h
+%.o: %.cpp
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
 	rm $(EXECUTABLE) $(OBJS)
